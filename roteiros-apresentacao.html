@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roteiros Reels — Dr. Michel Bittencourt</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #080d18;
+    --surface: #0f1623;
+    --surface2: #162030;
+    --border: #1c2a3f;
+    --border2: #243450;
+    --teal: #38bdf8;
+    --teal-dim: #0369a1;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --rose: #fb7185;
+    --purple: #c084fc;
+    --orange: #fb923c;
+    --text: #cbd5e1;
+    --text-bright: #e2e8f0;
+    --muted: #475569;
+    --white: #f8fafc;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.65;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    background: linear-gradient(160deg, #0b1222 0%, #0a1628 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 52px 32px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .header-tag {
+    display: inline-block;
+    background: rgba(56,189,248,0.08);
+    border: 1px solid rgba(56,189,248,0.25);
+    color: var(--teal);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  header h1 {
+    font-size: clamp(22px, 3.5vw, 34px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  header .sub {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    flex-wrap: wrap;
+  }
+  .stat-num { font-size: 22px; font-weight: 700; color: var(--teal); }
+  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; }
+
+  /* ---- LAYOUT ---- */
+  .wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 44px 0 18px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ---- CARD BASE ---- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .card-top {
+    border-bottom: 1px solid var(--border);
+    padding: 22px 26px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .card-num-badge {
+    flex-shrink: 0;
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+
+  .card-top-text h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+    line-height: 1.35;
+  }
+
+  .tag-row {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 9px; border-radius: 4px;
+  }
+
+  .card-body {
+    padding: 20px 26px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .field-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .field-text {
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .hook-box {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-bright);
+    border-left: 3px solid var(--border2);
+    line-height: 1.6;
+  }
+
+  .briefing-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .briefing-item {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.65;
+    border-left: 2px solid var(--border2);
+  }
+
+  .briefing-item strong {
+    color: var(--text-bright);
+    font-weight: 600;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .card-top { flex-direction: column; gap: 10px; }
+  }
+
+  /* ---- CORES POR CATEGORIA ---- */
+  /* Catarata: teal */
+  .cat-catarata .card-num-badge { background: rgba(56,189,248,0.1); color: var(--teal); }
+  .cat-catarata .hook-box { border-left-color: var(--teal); }
+  .cat-catarata .briefing-item { border-left-color: var(--teal-dim); }
+  .tag-catarata { background: rgba(56,189,248,0.1); color: var(--teal); }
+  .cat-catarata { border-top: 3px solid var(--teal); }
+
+  /* Glaucoma: green */
+  .cat-glaucoma .card-num-badge { background: rgba(52,211,153,0.1); color: var(--green); }
+  .cat-glaucoma .hook-box { border-left-color: var(--green); }
+  .cat-glaucoma .briefing-item { border-left-color: #065f46; }
+  .tag-glaucoma { background: rgba(52,211,153,0.1); color: var(--green); }
+  .cat-glaucoma { border-top: 3px solid var(--green); }
+  .cat-glaucoma .field-label { color: var(--green); }
+
+  /* Curiosidade: amber */
+  .cat-curiosidade .card-num-badge { background: rgba(251,191,36,0.1); color: var(--amber); }
+  .cat-curiosidade .hook-box { border-left-color: var(--amber); }
+  .cat-curiosidade .briefing-item { border-left-color: #92400e; }
+  .tag-curiosidade { background: rgba(251,191,36,0.1); color: var(--amber); }
+  .cat-curiosidade { border-top: 3px solid var(--amber); }
+  .cat-curiosidade .field-label { color: var(--amber); }
+
+  /* Humanizacao: rose */
+  .cat-humanizacao .card-num-badge { background: rgba(251,113,133,0.1); color: var(--rose); }
+  .cat-humanizacao .hook-box { border-left-color: var(--rose); }
+  .cat-humanizacao .briefing-item { border-left-color: #9f1239; }
+  .tag-humanizacao { background: rgba(251,113,133,0.1); color: var(--rose); }
+  .cat-humanizacao { border-top: 3px solid var(--rose); }
+  .cat-humanizacao .field-label { color: var(--rose); }
+
+  /* Especial maio: purple */
+  .cat-especial .card-num-badge { background: rgba(192,132,252,0.1); color: var(--purple); }
+  .cat-especial .hook-box { border-left-color: var(--purple); }
+  .cat-especial .briefing-item { border-left-color: #6b21a8; }
+  .tag-especial { background: rgba(192,132,252,0.1); color: var(--purple); }
+  .cat-especial { border-top: 3px solid var(--purple); border-color: rgba(192,132,252,0.4); }
+  .cat-especial .field-label { color: var(--purple); }
+  .cat-especial .card-body { background: rgba(88,28,135,0.04); }
+
+  /* campo label padrao catarata */
+  .cat-catarata .field-label { color: var(--teal); }
+
+  /* ---- CALENDARIO ---- */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+  @media (max-width: 580px) {
+    .calendar-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .week-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .week-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .week-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--text);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .week-item:last-child { border-bottom: none; }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%; flex-shrink: 0;
+  }
+  .dot-teal { background: var(--teal); }
+  .dot-green { background: var(--green); }
+  .dot-amber { background: var(--amber); }
+  .dot-rose { background: var(--rose); }
+  .dot-purple { background: var(--purple); }
+
+  footer {
+    text-align: center;
+    padding: 20px 0 50px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  footer span { color: var(--teal); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">Log Digital · Dr. Michel Bittencourt</div>
+  <h1>Roteiros para Reels · Maio 2026</h1>
+  <p class="sub">@dr.michelbittencourt · Oftalmologia · Catarata e Glaucoma</p>
+  <div class="stats-bar">
+    <div><div class="stat-num">16</div><div class="stat-label">Roteiros</div></div>
+    <div><div class="stat-num">4</div><div class="stat-label">Categorias</div></div>
+    <div><div class="stat-num">6 sem</div><div class="stat-label">Calendário</div></div>
+    <div><div class="stat-num">8.881</div><div class="stat-label">Seguidores</div></div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+  <!-- ===== DESTAQUE MAIO ===== -->
+  <div class="section-title">Destaque · Maio: Mês do Glaucoma</div>
+
+  <div class="card cat-especial">
+    <div class="card-top">
+      <div class="card-num-badge">16</div>
+      <div class="card-top-text">
+        <h3>O ladrão que nunca faz barulho</h3>
+        <div class="tag-row">
+          <span class="tag tag-especial">Destaque Maio</span>
+          <span class="tag tag-glaucoma">Glaucoma</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="field-label">Hook Visual (0 a 3 segundos)</div>
+        <div class="briefing-item">Tela preta. Silêncio total. Nenhuma música. Só o texto aparecendo: "Isso é o glaucoma."</div>
+      </div>
+      <div>
+        <div class="field-label">Entrada do Dr. Michel</div>
+        <div class="briefing-item">"Você não ouviu nada. Não sentiu nada. É exatamente assim que essa doença funciona."</div>
+      </div>
+      <div>
+        <div class="field-label">Dado de Impacto</div>
+        <div class="briefing-item">No Brasil, metade das pessoas com glaucoma não sabe que tem. Hoje. Enquanto você assiste a esse vídeo.</div>
+      </div>
+      <div>
+        <div class="field-label">Analogia</div>
+        <div class="briefing-item">"Imagine que alguém está apagando as bordas da sua foto favorita, um pixel por dia. Você olha toda manhã e pensa que está tudo bem. Até o dia em que percebe que falta o centro." [Continuar o desenrolar do vídeo]</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CATARATA ===== -->
+  <div class="section-title">Catarata</div>
+
+  <!-- R01 -->
+  <div class="card cat-catarata">
+    <div class="card-top">
+      <div class="card-num-badge">01</div>
+      <div class="card-top-text">
+        <h3>A cirurgia de catarata dói?</h3>
+        <div class="tag-row"><span class="tag tag-catarata">Catarata</span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="two-col">
+        <div>
+          <div class="field-label">Objetivo</div>
+          <div class="field-text">Quebrar o maior medo do paciente e gerar confiança no procedimento.</div>
+        </div>
+        <div>
+          <div class="field-label">Ideia Central</div>
+          <div class="field-text">O medo da dor é a principal razão por que pacientes adiam a cirurgia.</div>
+        </div>
+      </div>
+      <div>
+        <div class="field-label">Hook</div>
+        <div class="hook-box">"Vai doer?"</div>
+      </div>
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Entra diretamente com a pergunta que o paciente faz no consultório: "Vai doer?"</div>
+          <div class="briefing-item"><strong>Analogia:</strong> Compare o colírio anestésico a "desligar o interruptor da sensação": o olho está acordado, mas não sente. Como uma luva que protege sem você perceber que está usando.</div>
+          <div class="briefing-item">Explica que a cirurgia é feita com anestesia tópica (colírio), sem agulha, sem ponto.</div>
+          <div class="briefing-item"><strong>Dado de impacto:</strong> Mais de 99% dos casos evoluem sem complicações. Duração média de 15 a 20 minutos.</div>
+          <div class="briefing-item"><strong>Responsabilização:</strong> "O que pode atrasar sua recuperação não é a cirurgia: é adiar a decisão."</div>
+          <div class="briefing-item"><strong>Fechamento:</strong> Convite para comentar qual dúvida sobre a cirurgia ainda existe.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R02 -->
+  <div class="card cat-catarata">
+    <div class="card-top">
+      <div class="card-num-badge">02</div>
+      <div class="card-top-text">
+        <h3>Os 4 estágios da catarata</h3>
+        <div class="tag-row"><span class="tag tag-catarata">Catarata</span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="two-col">
+        <div>
+          <div class="field-label">Objetivo</div>
+          <div class="field-text">Educar o paciente sobre a progressão da doença e urgência do diagnóstico.</div>
+        </div>
+        <div>
+          <div class="field-label">Ideia Central</div>
+          <div class="field-text">A maioria dos pacientes só descobre a catarata em estágio avançado porque não conhece os sinais. Mostrar a progressão muda o comportamento preventivo.</div>
+        </div>
+      </div>
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Abre com o relato comum: paciente que atribui o embaçamento ao cansaço por meses.</div>
+          <div class="briefing-item"><strong>Analogia:</strong> A catarata é como uma janela de vidro que vai acumulando névoa devagar: você se acostuma sem perceber que a visão mudou.</div>
+          <div class="briefing-item"><strong>Os 4 estágios:</strong> Incipiente, intumescente, madura e hipermadura.</div>
+          <div class="briefing-item">Explica o que muda em cada fase: sensação de brilho, dificuldade com luz artificial, cores apagadas.</div>
+          <div class="briefing-item"><strong>Dado de impacto:</strong> No estágio maduro, a cirurgia é tecnicamente mais desafiadora. Quanto antes, mais simples.</div>
+          <div class="briefing-item"><strong>Responsabilização:</strong> "Se você estiver com mais de 50 anos e a visão mudou, não espere para marcar."</div>
+          <div class="briefing-item"><strong>Gancho:</strong> Próximo vídeo sobre quando a cirurgia é realmente necessária.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R03 -->
+  <div class="card cat-catarata">
+    <div class="card-top">
+      <div class="card-num-badge">03</div>
+      <div class="card-top-text">
+        <h3>Lente monofocal vs trifocal. Qual é certa para você?</h3>
+        <div class="tag-row"><span class="tag tag-catarata">Catarata</span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="two-col">
+        <div>
+          <div class="field-label">Objetivo</div>
+          <div class="field-text">Explicar as opções de lente intraocular e empoderar o paciente para a decisão.</div>
+        </div>
+        <div>
+          <div class="field-label">Ideia Central</div>
+          <div class="field-text">Há reels de lentes trifocais e preloaded separados, mas sem comparação. É a dúvida mais frequente pré-cirurgia.</div>
+        </div>
+      </div>
+      <div>
+        <div class="field-label">Hook</div>
+        <div class="hook-box">"Que lente eu vou receber na minha cirurgia?"</div>
+      </div>
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Abre com a pergunta mais comum que chega antes da cirurgia.</div>
+          <div class="briefing-item"><strong>Analogia:</strong> Lente monofocal é como uma câmera com foco fixo: excelente para um ponto, mas precisa de óculos para o resto. Trifocal é como uma câmera com autofoco: ajusta para perto, para longe e para distância intermediária.</div>
+          <div class="briefing-item">Explica os critérios que definem a escolha: estilo de vida, profissão, expectativa (não é só o olho).</div>
+          <div class="briefing-item"><strong>Dado de impacto:</strong> Lente trifocal não é para todo olho. Tem contraindicações que só os exames revelam.</div>
+          <div class="briefing-item"><strong>Responsabilização:</strong> "A lente certa não é a mais cara. É a que combina com a sua vida."</div>
+          <div class="briefing-item"><strong>Fechamento:</strong> "Me conta nos comentários: óculos ou liberdade total?"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R07 -->
+  <div class="card cat-catarata">
+    <div class="card-top">
+      <div class="card-num-badge">07</div>
+      <div class="card-top-text">
+        <h3>Corticoide pode causar glaucoma?</h3>
+        <div class="tag-row">
+          <span class="tag tag-catarata">Catarata</span>
+          <span class="tag tag-glaucoma">Glaucoma</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="field-label">Objetivo</div>
+        <div class="field-text">Alertar sobre risco medicamentoso comum e gerar compartilhamento (conteúdo para leigos).</div>
+      </div>
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Hook direto citando formas comuns de uso de corticoide que as pessoas não associam ao olho.</div>
+          <div class="briefing-item"><strong>Analogia:</strong> O corticoide é como uma torneira que abre o fluxo de pressão dentro do olho sem que você perceba. Para a maioria, isso não é problema. Para quem tem predisposição, a pressão vai subindo silenciosamente.</div>
+          <div class="briefing-item">Explica o mecanismo: corticoide pode elevar pressão intraocular em indivíduos "respondedores".</div>
+          <div class="briefing-item"><strong>Formas de exposição que as pessoas não imaginam:</strong> Pomadas na pálpebra, sprays nasais, inaladores, uso prolongado em qualquer via.</div>
+          <div class="briefing-item"><strong>Dado de impacto:</strong> Uso de corticoide tópico ocular por mais de 4 semanas pode elevar a PIO em até 40%.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GLAUCOMA ===== -->
+  <div class="section-title">Glaucoma</div>
+
+  <!-- R08 -->
+  <div class="card cat-glaucoma">
+    <div class="card-top">
+      <div class="card-num-badge">08</div>
+      <div class="card-top-text">
+        <h3>A cirurgia que opera catarata e glaucoma ao mesmo tempo</h3>
+        <div class="tag-row"><span class="tag tag-glaucoma">Glaucoma</span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="two-col">
+        <div>
+          <div class="field-label">Objetivo</div>
+          <div class="field-text">Mostrar avanço tecnológico (MIGS) e posicionar o Dr. Michel como referência em cirurgia avançada.</div>
+        </div>
+        <div>
+          <div class="field-label">Ideia Central</div>
+          <div class="field-text">MIGS é a principal inovação em glaucoma em 2025-2026. Gap direto no perfil.</div>
+        </div>
+      </div>
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Hook que soa impossível e é real.</div>
+          <div class="briefing-item"><strong>Analogia do DNA do Dr. Michel:</strong> "Antes o glaucoma era tratado com técnicas agressivas, como batalhas de território. Hoje temos dispositivos do tamanho de um fio de cabelo que fazem o mesmo trabalho com uma fração do risco."</div>
+          <div class="briefing-item">Explica MIGS de forma simples: implantes microscópicos que melhoram a drenagem do olho sem grandes incisões.</div>
+          <div class="briefing-item"><strong>Quando é indicado:</strong> Paciente com catarata que também tem glaucoma leve a moderado.</div>
+          <div class="briefing-item"><strong>Vantagem prática:</strong> Uma cirurgia, dois problemas resolvidos, recuperação mais tranquila.</div>
+          <div class="briefing-item"><strong>Dado de impacto:</strong> Dispositivos guiados por IA e adaptados à anatomia do paciente. Tecnologia 2025.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R13 -->
+  <div class="card cat-glaucoma">
+    <div class="card-top">
+      <div class="card-num-badge">13</div>
+      <div class="card-top-text">
+        <h3>Quanto tempo você tem de visão?</h3>
+        <div class="tag-row"><span class="tag tag-glaucoma">Glaucoma</span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Dr. Michel mostra o nervo óptico de 20 anos vs 70 anos. Mesma imagem, realidades opostas.</div>
+          <div class="briefing-item">Pergunta central: "O seu está sendo preservado?"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CURIOSIDADES ===== -->
+  <div class="section-title">Curiosidades</div>
+
+  <!-- R09 -->
+  <div class="card cat-curiosidade">
+    <div class="card-top">
+      <div class="card-num-badge">09</div>
+      <div class="card-top-text">
+        <h3>Você tem um ponto cego e nem sabe</h3>
+        <div class="tag-row"><span class="tag tag-curiosidade">Curiosidade</span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="two-col">
+        <div>
+          <div class="field-label">Objetivo</div>
+          <div class="field-text">Gerar curiosidade e demonstração interativa. Alto potencial viral.</div>
+        </div>
+        <div>
+          <div class="field-label">Tom</div>
+          <div class="field-text">Lúdico + científico. Segue padrão do reel 21 "O mecanismo da visão é fascinante".</div>
+        </div>
+      </div>
+      <div>
+        <div class="field-label">Ideia Central</div>
+        <div class="field-text">O reel 21 sobre percepção visual teve alto número de plays mesmo sendo curto. Um reel interativo com demonstração do ponto cego tem potencial ainda maior.</div>
+      </div>
+      <div>
+        <div class="field-label">Hook</div>
+        <div class="hook-box">"Feche o olho esquerdo agora. Olha só para esse ponto. Vai perceber algo desaparecer."</div>
+      </div>
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Reel interativo: o Dr. guia o espectador para fazer o teste do ponto cego enquanto assiste.</div>
+          <div class="briefing-item">Instrução simples: fechar o olho esquerdo, olhar para um ponto fixo, mover o celular até um objeto próximo "sumir".</div>
+          <div class="briefing-item"><strong>Analogia:</strong> O ponto cego é onde o nervo óptico conecta o olho ao cérebro. Não tem células fotorreceptoras ali. É literalmente uma lacuna na sua visão. Mas o cérebro é tão bom que preenche esse buraco automaticamente.</div>
+          <div class="briefing-item"><strong>Conexão clínica:</strong> No glaucoma, outras áreas do campo visual começam a ter lacunas parecidas. Mas o cérebro continua "inventando" que está tudo bem. É isso que torna a doença silenciosa.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R10 -->
+  <div class="card cat-curiosidade">
+    <div class="card-top">
+      <div class="card-num-badge">10</div>
+      <div class="card-top-text">
+        <h3>Por que choramos mais quando o olho está seco?</h3>
+        <div class="tag-row"><span class="tag tag-curiosidade">Curiosidade</span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="field-label">Objetivo</div>
+        <div class="field-text">Explicar paradoxo da síndrome do olho seco. Alto potencial de engajamento pelo estranhamento.</div>
+      </div>
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Abre com o paradoxo: lacrimejamento excessivo como sintoma de olho seco.</div>
+          <div class="briefing-item"><strong>Analogia:</strong> Imagine o filme lacrimal como uma camada de proteção no vidro do carro. Quando essa camada falha, o olho detecta o perigo e dispara o alarme, produz lágrimas reflexas em excesso. Mas essas lágrimas de emergência não têm a mesma composição das que lubrificam. É como apagar incêndio com água errada.</div>
+          <div class="briefing-item"><strong>Os 3 tipos de lágrima:</strong> Basal (lubrificação contínua), reflexa (resposta a irritação) e emocional.</div>
+          <div class="briefing-item">Por que a síndrome de olho seco produz excesso da lágrima errada.</div>
+          <div class="briefing-item"><strong>Dado de impacto:</strong> Olho seco é uma das queixas mais comuns em consulta oftalmológica e uma das mais subdiagnosticadas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R11 -->
+  <div class="card cat-curiosidade">
+    <div class="card-top">
+      <div class="card-num-badge">11</div>
+      <div class="card-top-text">
+        <h3>Como o seu cérebro inventa o que o olho não enxerga</h3>
+        <div class="tag-row"><span class="tag tag-curiosidade">Curiosidade</span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="field-label">Objetivo</div>
+        <div class="field-text">Explicar a neurociência da visão de forma fascinante. Alto potencial de replay e compartilhamento.</div>
+      </div>
+      <div>
+        <div class="field-label">Hook</div>
+        <div class="hook-box">"Você nunca enxerga a realidade. Você enxerga a interpretação do seu cérebro sobre ela."</div>
+      </div>
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Hook filosófico que abre a curiosidade.</div>
+          <div class="briefing-item"><strong>Analogia:</strong> O olho é a câmera. O nervo óptico é o cabo. O cérebro é o editor de vídeo: ele edita em tempo real, preenchendo lacunas, corrigindo cores, completando bordas que o olho não capturou.</div>
+          <div class="briefing-item"><strong>Exemplos concretos:</strong> Ilusões de ótica que funcionam porque o cérebro "decide" o que ver. O ponto cego que nunca percebemos (conecta com Roteiro 09).</div>
+          <div class="briefing-item"><strong>Conexão clínica:</strong> No glaucoma, o nervo óptico vai perdendo "cabos". Mas o cérebro continua editando, mascarando a perda até que seja tarde demais.</div>
+          <div class="briefing-item"><strong>Dado de impacto:</strong> O cérebro pode mascarar até 40% de perda de fibras nervosas antes que o paciente perceba qualquer alteração na visão.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R15 -->
+  <div class="card cat-curiosidade">
+    <div class="card-top">
+      <div class="card-num-badge">15</div>
+      <div class="card-top-text">
+        <h3>Como as doenças mudam o que você enxerga</h3>
+        <div class="tag-row"><span class="tag tag-curiosidade">Curiosidade</span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Demonstrar as diferentes formas como as pessoas com diferentes condições oculares enxergam em cada momento da condição (glaucoma, catarata, retinopatia diabética, degeneração macular...).</div>
+          <div class="briefing-item">Dr. Michel faz um gesto, por exemplo apontar para a câmera, e a imagem sofre uma alteração de filtro para simular como é a visão de quem tem a doença.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HUMANIZAÇÃO ===== -->
+  <div class="section-title">Humanização</div>
+
+  <!-- R12 -->
+  <div class="card cat-humanizacao">
+    <div class="card-top">
+      <div class="card-num-badge">12</div>
+      <div class="card-top-text">
+        <h3>Por que escolhi oftalmologia</h3>
+        <div class="tag-row"><span class="tag tag-humanizacao">Humanização</span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="two-col">
+        <div>
+          <div class="field-label">Objetivo</div>
+          <div class="field-text">Humanizar o Dr. Michel, fortalecer conexão emocional com a audiência e aumentar confiança.</div>
+        </div>
+        <div>
+          <div class="field-label">Tom</div>
+          <div class="field-text">Pessoal + reflexivo + caloroso. O reel 6 sobre equipe teve 30 comentários, o que mais gerou conversa.</div>
+        </div>
+      </div>
+      <div>
+        <div class="field-label">Hook</div>
+        <div class="hook-box">"Tem um momento específico que me fez escolher cuidar dos olhos das pessoas."</div>
+      </div>
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Abre com a linha que convida para uma história pessoal sem revelar tudo.</div>
+          <div class="briefing-item">Conta o momento ou paciente que definiu a escolha pela oftalmologia. O Dr. Michel decide qual história usar: pode ser da graduação, residência ou um caso clínico que ficou marcado.</div>
+          <div class="briefing-item">Conecta a história pessoal à missão atual: "É por isso que cada cirurgia, cada consulta, cada exame..."</div>
+          <div class="briefing-item"><strong>Elemento DNA:</strong> Usa "costumo dizer para os meus pacientes que..." para fazer a transição entre história pessoal e propósito clínico.</div>
+          <div class="briefing-item">Pode incluir bastidores do HOPE (Hospital de Olhos de Pernambuco), que já aparece tagueado no reel de maior engajamento do perfil.</div>
+          <div class="briefing-item">Finaliza com "trabalho conjunto": a expressão do DNA que posiciona o paciente como parceiro.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R14 -->
+  <div class="card cat-humanizacao">
+    <div class="card-top">
+      <div class="card-num-badge">14</div>
+      <div class="card-top-text">
+        <h3>Para que serve cada aparelho do consultório?</h3>
+        <div class="tag-row"><span class="tag tag-humanizacao">Humanização</span></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="field-label">Briefing</div>
+        <div class="briefing-list">
+          <div class="briefing-item">Explicar para que serve cada aparelho e exame na oftalmologia, mostrando os aparelhos no vídeo.</div>
+          <div class="briefing-item"><strong>Aparelhos a mostrar:</strong> Auto refrator, lâmpada de fenda, tonometria, fundoscopia, refrator de Greens ou foróptero.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CALENDÁRIO ===== -->
+  <div class="section-title">Ordem de Publicação Sugerida</div>
+  <div class="calendar-grid">
+    <div class="week-card">
+      <div class="week-title">Semana 1</div>
+      <div class="week-item"><span class="dot dot-purple"></span>R16 · Mês do Glaucoma</div>
+      <div class="week-item"><span class="dot dot-teal"></span>R07 · Corticoide</div>
+    </div>
+    <div class="week-card">
+      <div class="week-title">Semana 2</div>
+      <div class="week-item"><span class="dot dot-amber"></span>R09 · Ponto cego</div>
+      <div class="week-item"><span class="dot dot-teal"></span>R01 · Cirurgia dói?</div>
+    </div>
+    <div class="week-card">
+      <div class="week-title">Semana 3</div>
+      <div class="week-item"><span class="dot dot-green"></span>R08 · MIGS</div>
+      <div class="week-item"><span class="dot dot-amber"></span>R11 · Cérebro e visão</div>
+    </div>
+    <div class="week-card">
+      <div class="week-title">Semana 4</div>
+      <div class="week-item"><span class="dot dot-teal"></span>R02 · 4 estágios</div>
+      <div class="week-item"><span class="dot dot-rose"></span>R12 · Por que oftalmologia</div>
+    </div>
+    <div class="week-card">
+      <div class="week-title">Semana 5</div>
+      <div class="week-item"><span class="dot dot-green"></span>R13 · Quanto tempo de visão</div>
+      <div class="week-item"><span class="dot dot-amber"></span>R10 · Olho seco</div>
+    </div>
+    <div class="week-card">
+      <div class="week-title">Semana 6</div>
+      <div class="week-item"><span class="dot dot-teal"></span>R03 · Lente monofocal vs trifocal</div>
+      <div class="week-item"><span class="dot dot-amber"></span>R15 · Doenças e visão</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Gerado por <span>Log Digital</span> · Dr. Michel Bittencourt · Maio 2026
+</footer>
+
+</body>
+</html>
